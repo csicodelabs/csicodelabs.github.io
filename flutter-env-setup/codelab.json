@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-06-19T15:43:15Z",
+  "id": "flutter-env-setup",
+  "duration": 29,
+  "title": "Flutter环境搭建",
+  "authors": "Phony Lou",
+  "summary": "通过这个课程，你将会从0开始搭建一套Flutter开发框架",
+  "source": "1hIH0ooCqstwrQRG6h5WGLFJre2vyEn93y1C6eYRdcYs",
+  "theme": "flutter",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "Flutter"
+  ],
+  "tags": [
+    "windows 7 sp1 or later (64-bit)"
+  ],
+  "url": "flutter-env-setup"
+}

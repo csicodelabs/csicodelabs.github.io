@@ -1,0 +1,164 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Flutter环境搭建</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../asset/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="flutter-env-setup"
+                  title="Flutter环境搭建"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="介绍" duration="0">
+        <p class="image-container"><img style="width: 624.00px" src="img/ea96cc5edfc859ae.png"></p>
+<p><strong>Last Updated:</strong> 2019-06-12</p>
+<h2 is-upgraded><strong>什么是Flutter</strong></h2>
+<p>Flutter是一个由谷歌开发的开源移动应用软件开发工具包，用于为Android和iOS开发应用，同时也将是Google Fuchsia下开发应用的主要工具。</p>
+<p>更多的交给Google自己去吹。</p>
+<h2 is-upgraded><strong>你将会完成什么(What you&#39;ll build)</strong></h2>
+<p>在本次课程中，你将从0开始搭建Flutter的开发环境。你将会：</p>
+<ul>
+<li>安装Flutter SDK</li>
+<li>安装Android Studio和VS Code作为编辑器</li>
+<li>随缘写出第一个Flutter Demo</li>
+</ul>
+<h2 is-upgraded><strong>你会学习到什么(What you&#39;ll learn)</strong></h2>
+<ul>
+<li>如何安装Flutter SDK</li>
+<li>如何配置环境变量</li>
+<li>如何检查SDK是否安装成功</li>
+<li>学习如何连接手机和电脑</li>
+<li>如何建立一个Flutter项目并跑在手机上（随缘）</li>
+</ul>
+<p>本课程模板文件已经准备好，如果需要代码的地方也只需要简单的复制粘贴即可。</p>
+<h2 is-upgraded><strong>你需要准备些什么(What you&#39;ll need)</strong></h2>
+<ul>
+<li>一台电脑</li>
+<li>能自由访问资源的网络</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="获取Flutter SDK" duration="5">
+        <h2 is-upgraded><strong>下载SDK</strong></h2>
+<p>用迅雷下载以下安装包以获取Flutter SDK的v1.5.4-hotfix稳定版本。用迅雷是因为它会帮你自动下到墙外资源，如果能科学上网的话也可以用浏览器直接下。</p>
+<p><a href="https://storage.googleapis.com/flutter_infra/releases/stable/windows/flutter_windows_v1.5.4-hotfix.2-stable.zip" target="_blank">flutter_windows_v1.5.4-hotfix.2-stable.zip</a></p>
+<h2 is-upgraded><strong>解压zip包</strong></h2>
+<p>解压缩zip文件并将包含的flutter放置在Flutter SDK的所需安装位置（例如C:\ src\flutter;不要将Flutter安装在需要提升权限的C:\Program Files\之类的目录中）。</p>
+<p>本教程中，我们把解压后的文件放在C:\SWTOOLS\flutter目录下。</p>
+<h2 is-upgraded><strong>运行命令行</strong></h2>
+<p>在flutter目录中找到文件flutter_console.bat。 双击启动它。</p>
+<p class="image-container"><img style="width: 624.00px" src="img/d57182f420405863.gif"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="配置环境变量" duration="2">
+        <p>右键点击&#34;我的电脑&#34;或者&#34;这台电脑&#34;，在弹出框中选择&#34;属性&#34;，然后点击高级系统设置，再点击环境变量。</p>
+<p class="image-container"><img style="width: 624.00px" src="img/8b1c08a4eea2f1b6.gif"></p>
+<p>在用户变量下，检查是否有名为Path的条目：</p>
+<ul>
+<li>如果该条目确实存在，请将完整路径附加到flutter \ bin，在本教程中需要填入的路径为C:\SWTOOLS\flutter\bin 英文输入法下的分号; 作为现有值的分隔符。Windows 10下面应该不需要。</li>
+<li>如果该条目不存在，请创建一个名为Path的新用户变量，其中包含flutter \ bin的完整路径作为其值。</li>
+</ul>
+<p class="image-container"><img style="width: 624.00px" src="img/cc8c657f9246ecc8.gif"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="运行flutter doctor" duration="5">
+        <p>从命令行或者刚才双击的flutter_console.bat中运行flutter doctor这个命令，以检查flutter平台的依赖情况。</p>
+<p>在这里我执行的命令为：</p>
+<p>C:\Users\qilin&gt;<em>flutter doctor</em></p>
+<p>结果如下:</p>
+<pre><code>[-] Android toolchain - develop for Android devices
+    • Android SDK at D:\Android\sdk
+    ✗ Android SDK is missing command line tools; download from https://goo.gl/XxQghQ
+    • Try re-installing or updating your Android SDK,
+      visit https://flutter.dev/setup/#android-setup for detailed instructions.</code></pre>
+<aside class="special"><p><strong>提示：不必担心出来一群红X，我们在后续的操作中会逐步解决它们。 </strong></p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Android环境搭建" duration="2">
+        <h2 is-upgraded>安装Android Studio</h2>
+<p>下载</p>
+<ol type="1" start="1">
+<li>下载并安装<a href="https://developer.android.com/studio" target="_blank">Android Studio</a>。还是建议用神奇的迅雷，因为它可以帮你下到墙外资源。把这个链接(https://dl.google.com/dl/android/studio/install/3.4.1.0/android-studio-ide-183.5522156-windows.exe)复制到迅雷里面就可以了。</li>
+<li>启动Android Studio，然后浏览&#34;Android Studio安装向导&#34;。 这将安装最新的Android SDK，Android SDK Platform-Tools和Android SDK Build-Tools，这些都是Flutter在开发Android时所需要的。</li>
+</ol>
+<aside class="special"><p><strong>提示：</strong></p>
+<ol type="1" start="1">
+<li><strong>只需要挑选一个SDK就可以，我选择的是Android 9。这里也会同步下载连接手机的驱动。 </strong></li>
+</ol>
+</aside>
+<h2 is-upgraded><strong>安装Flutter和Dart插件</strong></h2>
+<p>打开Android Studio，选择File &gt; Settings &gt; Plugins</p>
+<p>在搜索框中输入Flutter并回车，在找到的结果中点击install，待安装完成后重启IDE。</p>
+<h2 is-upgraded><strong>设置Android设备</strong></h2>
+<p>打开手机的开发者选项，允许USB调试，这里根据厂商不同会有不同的操作，不过一般都集中在Android版本显示那里。</p>
+<p>用数据线把手机和电脑连接起来，记住先退出360全家桶、金山、腾讯系(微信除外)的任何一款软件。</p>
+<p>在命令行运行flutter devices命令来检查设备连接情况。</p>
+<p class="image-container"><img style="width: 480.00px" src="img/6e7f8754ed732841.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="编写第一个Flutter项目" duration="15">
+        <h2 is-upgraded><strong>新建项目</strong></h2>
+<p>打开Android Studio，新建Flutter项目。项目名定义为my_first_flutter_app，SDK地址指向我们的Flutter安装地址。完成后点击下一步。设置公司域名为csi.com，其实这里并不影响什么，然后点击Finish</p>
+<p class="image-container"><img style="width: 624.00px" src="img/1f658d1a7d584733.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img/634fab02809c62d3.png"></p>
+<p class="image-container"><img style="width: 624.00px" src="img/57737d224f774d39.png"></p>
+<h2 is-upgraded><strong>运行项目</strong></h2>
+<p>第一个红框的内容为连接的设备型号，然后点击第二个红框内的运行按钮。</p>
+<p class="image-container"><img style="width: 624.00px" src="img/e5576ed098c0505b.png"></p>
+<p>控制台显示如下内容</p>
+<pre><code>Launching lib\main.dart on SM919 in debug mode...
+Initializing gradle...
+Resolving dependencies...
+Running Gradle task &#39;assembleDebug&#39;...
+
+</code></pre>
+<p>运行效果图如下所示：</p>
+<p class="image-container"><img style="width: 624.00px" src="img/cd0ca8bc18a83f17.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="恭喜你完成课程" duration="0">
+        <p>恭喜你成功完成了本课程。</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="../asset/native-shim.js"></script>
+  <script src="../asset/custom-elements.min.js"></script>
+  <script src="../asset/prettify.js"></script>
+  <script src="../asset/codelab-elements.js"></script>
+
+</body>
+</html>
