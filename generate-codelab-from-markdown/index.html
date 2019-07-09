@@ -1,0 +1,101 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>如何用markdown文件写出codelab课程</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../asset/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="generate-codelab-from-markdown"
+                  title="如何用markdown文件写出codelab课程"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="什么是CodeLab" duration="1">
+        <p>Codelab是一种以动手实操为主的学习方式，中软国际MNC能力中心今后将会大量采用这种形式来对项目团队进行赋能。在Codelab模式下，讲师将要负责输出课题、编写Codelab内容和进行少量的课程指导，受训人员则需要更加主动地完成课题。</p>
+<p>至于导师如何『输出课题、编写Codelab内容』则是本课程会带给你的。</p>
+<p>前置条件</p>
+<ul>
+<li>你要有一个文本编辑器，推荐<a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>，因为它提供实时预览</li>
+<li>claat工具 <a href="https://github.com/googlecodelabs/tools/releases" target="_blank">从这里下载</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="一些格式指导" duration="1">
+        <p>可以在这里看看GitHub的markdown格式指导，https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet</p>
+<p>Codelab的文件格式可以<a href="https://github.com/googlecodelabs/tools/blob/master/claat/parser/md/README.md" target="_blank">看这里</a>。</p>
+<p>首先你需要填充一些元数据，包括简介和作者还有id。可以直接复制这个文件，然后改动，https://github.com/tomtom-gangdam-style-for-map/tomtom-gangdam-style-for-map.github.io/blob/master/gangdam.md</p>
+<h2 is-upgraded>提示框</h2>
+<p>橘黄色的提示块，用Negative+换行+:+内容来实现</p>
+<pre><code>Negative
+: To get an API key you need register or sign in to TomTom Developer Portal. Request an evaluation API key to access the service you want to use the SDK with. 
+</code></pre>
+<aside class="warning"><p>To get an API key you need register or sign in to TomTom Developer Portal. Request an evaluation API key to access the service you want to use the SDK with.</p>
+</aside>
+<p>with.</p>
+<p>绿色的提示块，用Positive+换行+:+内容来实现</p>
+<pre><code>Positive
+: It is possible to have a single key(app) for all TomTom services, but you can also  choose : to have individual keys for the different services.
+</code></pre>
+<aside class="special"><p>It is possible to have a single key(app) for all TomTom services, but you can also  choose : to have individual keys for the different services.</p>
+</aside>
+<p>ervices.</p>
+<h2 is-upgraded>图片和下载按钮</h2>
+<p>图片</p>
+<pre><code>![名字](https://图片地址.png)
+
+// 也可以用相对路径，如![名字](./env.gif)
+</code></pre>
+<p class="image-container"><img alt="名字" src="img\8b1c08a4eea2f1b6.gif"></p>
+<p>下载按钮</p>
+<pre><code>[Download functional examples](https://api.tomtom.com/maps-sdk-js/4.23.3/jssdk-4.23.3-distribution-vector.zip)
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="从markdown生成文件" duration="1">
+        <p>命令如下</p>
+<pre><code> claat export generate-codelab-from-markdown.md
+</code></pre>
+<p>生成文件夹，名字和文件中元数据id所指定的值一致</p>
+<pre><code> claat serve generate-codelab-from-markdown.md
+</code></pre>
+<p>在http://localhost:9090 启动服务，点击刚才生成的文件夹即可预览。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="提交课程" duration="1">
+        <p>按照规定，讲师需要通过git把markdown文件提交到远端库中，这部分的工作还在开发中，现在先发邮件吧，地址是：louqilin@chinasofti.com</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="../asset/native-shim.js"></script>
+  <script src="../asset/custom-elements.min.js"></script>
+  <script src="../asset/prettify.js"></script>
+  <script src="../asset/codelab-elements.js"></script>
+
+</body>
+</html>

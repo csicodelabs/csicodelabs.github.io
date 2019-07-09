@@ -1,0 +1,19 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-06-13T16:35:05+08:00",
+  "id": "generate-codelab-from-markdown",
+  "duration": 4,
+  "title": "如何用markdown文件写出codelab课程",
+  "summary": "Guideness of generate codelab from markdown file",
+  "source": ".\\generate-codelab-from-markdown.md",
+  "theme": "",
+  "status": null,
+  "category": [
+    "environment"
+  ],
+  "tags": [],
+  "url": "generate-codelab-from-markdown"
+}
