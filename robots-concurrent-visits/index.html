@@ -1,0 +1,103 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>如何在遵守数据安全规定的前提下，用多个机器人并发访问来提升效率？</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="../asset/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="0"
+                  id="robots-concurrent-visits"
+                  title="如何在遵守数据安全规定的前提下，用多个机器人并发访问来提升效率？"
+                  environment="web"
+                  feedback-link="kouyong001@chinasofti.com">
+    
+      <google-codelab-step label="背景介绍" duration="1">
+        <p>银行经常会收到企业给员工缴纳公积金信息的邮件，邮件中的附件包含详细的员工缴纳信息，银行需要花费很多人工来把这些邮件以及附件中的信息录入到业务系统中，然后做校对。</p>
+<p>为了<strong>提升效率，降低成本，减少出错概率</strong>，银行决定使用RPA以自动化的方式来处理这部分工作。在RPA方案实施后，这部分的工作被拆分为两个阶段。</p>
+<p><strong>第一阶段是信息提取和录入。</strong>在这个阶段中，会有多个机器人同时去读取新邮件，把每一封邮件和其附件的概要信息提取出来，录入到一个网站中，网站的数据保存在数据库A。接着这些机器人会把邮件附件中的员工缴纳详细信息提取出来，通过一个应用程序保存到数据库B中。</p>
+<p><strong>第二阶段是信息校验。</strong>在这个阶段中，会有一个机器人用邮件中的原始数据和数据库中的数据做比对，如果有不一致的，就记录到一个excel文档中。</p>
+<p><strong>存在的问题</strong><br>考虑到信息安全，客户希望机器人可以像人一样，每个机器人只提取和处理一条数据的一部分。</p>
+<p><strong>业务流程图</strong><img alt="业务流程图" src="img\651b14eea71f625e.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="客户痛点" duration="1">
+        <p>根据银行的信息安全规定，为了保证邮件中的信息不泄露，每一条信息在录入系统的时候，必须由多个员工完成，比如把柜台收集到的表单扫描后，将其中的姓名部分的截图交给后台员工A录入，把住址交给员工B录入，把电话号码拆分成多个部分交给不同的员工录入，这样每个人看到的都仅仅是客户的一部分信息，避免有人恶意使用客户信息。即便这部分工作交给机器人来做，客户也依然这样要求。这种做法有一个坊间的名称，叫做信息切片。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="解决方式" duration="1">
+        <p>我们在这个场景中遇到的问题用一句话概括就是 - <strong>需要用多个机器人交叉处理同一条数据不同部分</strong>。</p>
+<p>我们先把一条数据的第一阶段分为以下两个部分：</p>
+<ol type="1">
+<li>邮件和附件概要信息的提取和录入</li>
+<li>附件中详细信息的提取和录入</li>
+</ol>
+<p>为了提升信息处理的效率，我们计划在第一阶段采用两个机器人<strong>Robot1</strong>和<strong>Robot2</strong>同时处理的方式，它们采用相同的工作流程，但是每个机器人只能提取和录入一条记录的一部分信息，比如，在一封邮件中，邮件和附件的概要信息的提取和录入由机器人A完成，那么这封邮件中的附件内的详细信息的提取和录入就会由另一个机器人B来完成。为了避免出现重复处理的情况，我们在数据库中新建了一张临时表，用来保存每一条记录不同部分的处理状态，结构大致如下：</p>
+<table>
+<tr></tr>
+<tr><td colspan="1" rowspan="1"><p>101</p>
+</td><td colspan="1" rowspan="1"><p>Robot1</p>
+</td><td colspan="1" rowspan="1"><p>Robot2</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>102</p>
+</td><td colspan="1" rowspan="1"><p>Robot2</p>
+</td></tr>
+</table>
+<p>其中ID列是这条记录在数据库中的唯一标示，Part1和Part2表示数据的两个组成部分。</p>
+<p><strong>根据以上的思考，我们设计机器人的工作流程如下：</strong></p>
+<ul>
+<li>读取邮件列表</li>
+<li>在内存中处理这些邮件的第一部分信息，并把这些记录标记成是自己做的（就是在Part1这个列写入机器人的名字，也就是Robot1或Robot2）</li>
+<li>把更新后的这部分数据写入到数据库中</li>
+<li>在数据库中查询是否有任何记录的第一部分不是自己做的，并且第二部分还没开始做</li>
+<li>如果有满足条件的记录，就开始处理这些记录的第二部分信息，并在Part2这个列中写入自己的名字（Robot1或Robot2）</li>
+<li>重新开始读取收件箱中的新邮件</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="给客户带来的价值" duration="1">
+        <p>在这个方案中，每个机器人只处理一条记录的一部分信息，彼此不会冲突，而且即便未来加入新的机器人，或者把一条记录拆分成更多的部分，也不需要做太多调整，避免未来频繁的改动。</p>
+<p>这个方案既通过多个机器人多线程处理邮件提升了工作效率，降低了客户成本，同时也遵循了客户的安全机制。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="思考" duration="0">
+        <ol type="1">
+<li>如果一条记录要分成三个部分，应该如何调整方案？</li>
+<li>如果要同时启用三个机器人，方案应该做何调整？</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="../asset/native-shim.js"></script>
+  <script src="../asset/custom-elements.min.js"></script>
+  <script src="../asset/prettify.js"></script>
+  <script src="../asset/codelab-elements.js"></script>
+
+</body>
+</html>

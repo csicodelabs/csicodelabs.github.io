@@ -1,0 +1,23 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-07-10T14:03:00+08:00",
+  "id": "robots-concurrent-visits",
+  "duration": 4,
+  "title": "如何在遵守数据安全规定的前提下，用多个机器人并发访问来提升效率？",
+  "summary": "How to improve efficiency by using multiple robots for concurrent visits while complying with data security requirements?",
+  "source": ".\\robots-concurrent-visits.md",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "security"
+  ],
+  "tags": [],
+  "feedback": "kouyong001@chinasofti.com",
+  "ga": "0",
+  "url": "robots-concurrent-visits"
+}
