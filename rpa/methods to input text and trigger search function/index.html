@@ -1,0 +1,83 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>输入搜索关键字后，点击搜索按钮，无法触发搜索功能怎么办？</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid="0"
+                  id="methods to input text and trigger search function"
+                  title="输入搜索关键字后，点击搜索按钮，无法触发搜索功能怎么办？"
+                  environment="web"
+                  feedback-link="kouyong001@chinasofti.com">
+    
+      <google-codelab-step label="背景介绍" duration="1">
+        <p>在一个web页面上，有一个文本框用于输入搜索关键字，右边有一个搜索按钮。为了实现自动化，需要通过Blue Prism来自动输入关键字后，点击这个按钮开始搜索，并从搜索结果中提取数据。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="客户痛点" duration="1">
+        <p>开发人员用Blue Prism做了各种尝试，发现搜索关键字的输入是没有问题的，而且搜索按钮的点击事件也触发了，按钮也变成了灰色，但是不管如何更改搜索条件，搜索结果总是空的，已经确认过了不是数据的问题，手动点击搜索按钮，该功能可以正常使用。</p>
+<p>一个完整的自动化流程到这一步卡住了，拿不到搜索结果中的数据导致流程无法继续开展。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="问题分析" duration="1">
+        <p>RPA中给元素的属性赋值一般有两种方式。<br>第一种是模拟人操作的方式在页面上输入。这种做法在UiPath中是默认处理方式，特点是模拟人操作，所以效率相对较低，且遇到一些特殊情况时，无法在文本框中输入，或者输入受到某些限制。</p>
+<p>比如下面这个应用程序，其中有三个带格式的文本框（Cash In, On Us Check, Not On Us Check），手动方式是无法往文本框里面输入小数点的，这个和文本框的格式设置，或者表单的验证条件有关系。<br><img alt="UiDemo" src="img\832ce5d5eef78e72.png"></p>
+<p>这里还有一个大家熟悉的例子，我们有时需要填写忘打卡电子流，里面的时间字段也是无法手动输入的，只能通过在日历控件上点击来输入内容，这样做可以避免产生无效数据，但为了实现自动化，RPA在这种情况下应该如何处理呢？<br><img alt="attendance flow" src="img\2af5007876c4b175.gif"></p>
+<p>所以就有了我们的第二种输入方式。这种方式可以直接给指定元素的属性赋值，从而绕过了输入信息时表单或控件里面的验证。在Blue Prism，这是默认的输入方式。<br><img alt="input numbers" src="img\300a32cae3206bcd.gif"></p>
+<p>![auto fill form]./auto fill form.gif)</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="解决方式" duration="1">
+        <p>回到我们遇到的问题。根据上文分析，初步怀疑是赋值的方式设置有问题，有些情况下给页面元素的属性直接赋值是不行的。BP中默认输入方式都是通过元素给属性赋值，但在这里第一种方式看来并不被支持。而UiPath刚好相反，默认是模拟人操作，但可以调整为另一种输入方式。<br>另外也怀疑搜索功能无法触发，有可能是因为我们之前是通过元素直接调用click方法，而不是模拟人手动操作的。</p>
+<p>所以，我们找到的解决方式是改变BP中Write控件的输入方式为SendKey，把关键字和回车都通过SendKey发送给搜索文本框，成功输入了文字，也触发了搜索功能，问题解决。<br>        <br>问题总结：文本框有普通的，也有里面带格式、验证的，或者带第三方控件的，如果通过元素属性直接赋值或调用方法不行的话，就切换成模拟人工输入方式试试吧。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="给客户带来的价值" duration="1">
+        <p>这个办法解决了在有些特殊情况下，无法给页面元素赋值，事件无法触发的问题，让RPA能够适用、连接更多的场景。</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="思考" duration="1">
+        <ol type="1">
+<li>在手机模拟器中打开类似携程这样的app，要测试其中的酒店订房功能，输入起止日期的文本框是一个什么样的元素？能否通过点击后手动输入一个日期呢？如若不能，用RPA应该如何测试这个流程呢？</li>
+<li>您还遇到过哪些存在特殊情况的文本框？您是如何处理的？</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>

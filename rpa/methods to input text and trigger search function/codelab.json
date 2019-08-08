@@ -1,0 +1,23 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-08-08T16:16:27+08:00",
+  "id": "methods to input text and trigger search function",
+  "duration": 6,
+  "title": "输入搜索关键字后，点击搜索按钮，无法触发搜索功能怎么办？",
+  "summary": "The search function that can not be triggered?",
+  "source": "search function that can not be triggered.md",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "security"
+  ],
+  "tags": [],
+  "feedback": "kouyong001@chinasofti.com",
+  "ga": "0",
+  "url": "methods to input text and trigger search function"
+}
